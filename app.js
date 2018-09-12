@@ -42,7 +42,6 @@ async function main () {
     } else {
       log.info({uuid: processorGlobalId}, 'No events received!')
       continueLoop = false
-      await sleep(30000)
     }
   }
 
