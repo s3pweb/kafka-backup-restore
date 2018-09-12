@@ -1,16 +1,15 @@
 const fs = require('fs')
 const uuid = require('uuid/v4')
 
-const kafkaListener = require('./lib/kafka/kafkaListener')
+const KafkaListener = require('./lib/kafka/kafkaListener')
 const log = require('./lib/logger/logger')('Main')
 
 const processorGlobalId = uuid()
 
-let listener = new kafkaListener(log)
+let listener = new KafkaListener(log)
 let readCount = 0
 
 async function main () {
-
   await listener.connect(processorGlobalId)
 
   let topics = []
@@ -24,11 +23,10 @@ async function main () {
   let continueLoop = true
 
   while (continueLoop) {
-
     let uid = uuid()
-    let messages = await listener.listen(100, uid)
+    let messages = await listener.listen(1000, uid)
 
-    log.info({uuid: uid}, `Got ${messages.length} message(s)`)
+    log.info({ uuid: uid }, `Got ${messages.length} message(s)`)
 
     for (let event of messages) {
       readCount++
@@ -38,25 +36,18 @@ async function main () {
     }
 
     if (messages.length > 0) {
-      log.info({uuid: processorGlobalId}, `Read ${readCount}  events from the beginning.`)
+      log.info({ uuid: processorGlobalId }, `Read ${readCount}  events from the beginning.`)
     } else {
-      log.info({uuid: processorGlobalId}, 'No events received!')
+      log.info({ uuid: processorGlobalId }, 'No events received!')
       continueLoop = false
     }
   }
 
-  await
-    listener.disconnect()
-}
-
-async function sleep (ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms)
-  })
+  await listener.disconnect()
 }
 
 main()
   .catch((err) => {
-    log.error({err: err}, `Application error.`)
+    log.error({ err: err }, `Application error.`)
     listener.disconnect()
   })
