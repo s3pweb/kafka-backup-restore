@@ -27,7 +27,7 @@
     "uuid": "^8.2.0"
   },
   "devDependencies": {
-    "node-rdkafka": "^2.4.1",
-    "standard": "^12.0.1"
+    "node-rdkafka": "^2.9.0",
+    "standard": "^14.3.4"
   }
 }
