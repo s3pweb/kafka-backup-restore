@@ -1,5 +1,5 @@
 const fs = require('fs')
-const uuid = require('uuid/v4')
+const { v4: uuid } = require('uuid')
 
 const KafkaProducer = require('./lib/kafka/kafkaProducer')
 const log = require('./lib/logger/logger')('Main')

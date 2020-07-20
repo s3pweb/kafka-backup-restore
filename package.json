@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/s3pweb/kafka-backup-restore#readme",
   "dependencies": {
-    "bunyan": "^1.8.12",
-    "config": "^2.0.1",
-    "uuid": "^3.3.2"
+    "bunyan": "^1.8.14",
+    "config": "^3.3.1",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "node-rdkafka": "^2.4.1",
